@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [Header("Ground Check")]
-    public float sphereOffset;
-    public float sphereRadius;
+    public float sphereOffset = 0.1f;
+    public float sphereRadius = 0.3f;
     public LayerMask groundLayer;
 
     [Header("Movement")]
@@ -16,31 +16,32 @@ public class PlayerMove : MonoBehaviour
     public float jumpForce = 5f;
 
     [Header("Crouch")]
-    public float standHeight = 2f;
     public float crouchHeight = 1.2f;
 
-    private Rigidbody rb;
-    private CapsuleCollider col;
+    Rigidbody rb;
+    CapsuleCollider col;
 
     float h;
     float v;
 
-    private bool isGrounded;
-    private bool doubleJump;
-    private bool isCrouching;
+    bool isGrounded;
+    bool canDoubleJump;
+    bool isCrouching;
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + transform.up * sphereOffset, sphereRadius);
-    }
+    float standHeight;
+    Vector3 standCenter;
+    Vector3 crouchCenter;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
 
+        rb.freezeRotation = true;
+
         standHeight = col.height;
+        standCenter = col.center;
+        crouchCenter = new Vector3(0, crouchHeight / 2f, 0);
     }
 
     void Update()
@@ -48,30 +49,33 @@ public class PlayerMove : MonoBehaviour
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-       
+        // Ground check (Sphere)
         isGrounded = Physics.CheckSphere(
-            transform.position + transform.up * sphereOffset,
+            transform.position + Vector3.up * sphereOffset,
             sphereRadius,
             groundLayer
         );
 
         if (isGrounded)
         {
-            doubleJump = true;
+            canDoubleJump = true;
         }
 
-        // Jump + Double Jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        // Jump
+        if (Input.GetButtonDown("Jump"))
         {
-            Jump();
-        }
-        else if (Input.GetButtonDown("Jump") && !isGrounded && doubleJump)
-        {
-            Jump();
-            doubleJump = false;
+            if (isGrounded)
+            {
+                DoJump();
+            }
+            else if (canDoubleJump)
+            {
+                DoJump();
+                canDoubleJump = false;
+            }
         }
 
-        // Toggle Crouch (Ctrl)
+        // Toggle crouch (Ctrl)
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             if (!isCrouching) StartCrouch();
@@ -83,24 +87,19 @@ public class PlayerMove : MonoBehaviour
     {
         float currentSpeed = speed;
 
-        // Sprint (Shift)
         if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
-        {
             currentSpeed = sprintSpeed;
-        }
 
-        // Crouch speed
         if (isCrouching)
-        {
             currentSpeed *= crouchSpeedMultiplier;
-        }
 
-        Vector3 movement = (transform.right * h + transform.forward * v) * currentSpeed;
-        rb.linearVelocity = new Vector3(movement.x, rb.linearVelocity.y, movement.z);
+        Vector3 move = (transform.right * h + transform.forward * v) * currentSpeed;
+        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
     }
 
-    void Jump()
+    void DoJump()
     {
+   
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
@@ -109,13 +108,22 @@ public class PlayerMove : MonoBehaviour
     {
         isCrouching = true;
         col.height = crouchHeight;
-        col.center = new Vector3(0, crouchHeight / 2f, 0);
+        col.center = crouchCenter;
     }
 
     void StopCrouch()
     {
         isCrouching = false;
         col.height = standHeight;
-        col.center = new Vector3(0, standHeight / 2f, 0);
+        col.center = standCenter;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(
+            transform.position + Vector3.up * sphereOffset,
+            sphereRadius
+        );
     }
 }
