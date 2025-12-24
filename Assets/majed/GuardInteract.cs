@@ -1,32 +1,38 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GuardInteract : MonoBehaviour
 {
     [Header("References")]
     public Transform player;              // اللاعب
-    public GameObject ticketObject;       // التذكرة (GameObject بالمشهد)
-    public TextMeshProUGUI messageText;   // نص الشاشة (TMP)
+    public GameObject ticketObject;       // التذكرة
+    public TextMeshProUGUI messageText;   // نص الشاشة
+    public Image stickerImage;            // صورة الستكر
 
     [Header("Settings")]
     public float interactDistance = 2.5f;
-    public float messageDuration = 3f;
+    public float messageDuration = 7f;
 
     bool isShowing = false;
 
     void Update()
     {
-        if (player == null || messageText == null) return;
+        if (player == null || messageText == null || stickerImage == null) return;
 
         float dist = Vector3.Distance(player.position, transform.position);
 
         if (dist <= interactDistance && Input.GetKeyDown(KeyCode.E) && !isShowing)
         {
             if (ticketObject == null || !ticketObject.activeInHierarchy)
-                ShowMessage("🎟️ -500 RIYAL  you are welcome to enter Sir ");
+            {
+                ShowMessage("🎟️ -500 RIYAL\nYou are welcome to enter, Sir");
+            }
             else
-                ShowMessage("⏰ DO You have a ticket ? AND you are Alrady LATE TO ENTER 5 MINUTES and the GATE WILL BE CLOSED");
+            {
+                ShowMessage("⏰ Do you have a ticket?\nYou are already late.\nThe gate will close in 5 minutes.");
+            }
         }
     }
 
@@ -39,12 +45,17 @@ public class GuardInteract : MonoBehaviour
     {
         isShowing = true;
 
+        // شغّل النص والصورة
         messageText.text = msg;
         messageText.gameObject.SetActive(true);
+        stickerImage.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(messageDuration);
 
+        // طفّيهم
         messageText.gameObject.SetActive(false);
+        stickerImage.gameObject.SetActive(false);
+
         isShowing = false;
     }
 }

@@ -15,6 +15,7 @@
   <Project Path="Unity.TextMeshPro.Editor.csproj" />
   <Project Path="Unity.Rendering.LightTransport.Runtime.csproj" />
   <Project Path="UnityEditor.UI.csproj" />
+  <Project Path="Unity.2D.Sprite.Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.Multiplayer.Center.Common.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
@@ -23,6 +24,7 @@
   <Project Path="Unity.Rendering.LightTransport.Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.Shaders.csproj" />
   <Project Path="Unity.RenderPipelines.Core.Runtime.Shared.csproj" />
+  <Project Path="Unity.2D.Sprite.AIIntegration.Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.Config.Runtime.csproj" />
   <Project Path="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.csproj" />
   <Project Path="Unity.RenderPipelines.Core.ShaderLibrary.csproj" />
