@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e96965b94809f4c159e1c61f170f321d
+timeCreated: 1462048671
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 30777
+  packageName: 3D Museum Showroom Kit
+  packageVersion: 2.5
+  assetPath: Assets/_Creepy_Cat/_Museum/_Meshes/Materials/SkyBox.mat
+  uploadId: 689861

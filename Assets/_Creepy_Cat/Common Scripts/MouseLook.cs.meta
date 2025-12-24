@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4277ca51b1702d344909138bdc336286
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 30777
+  packageName: 3D Museum Showroom Kit
+  packageVersion: 2.5
+  assetPath: Assets/_Creepy_Cat/Common Scripts/MouseLook.cs
+  uploadId: 689861

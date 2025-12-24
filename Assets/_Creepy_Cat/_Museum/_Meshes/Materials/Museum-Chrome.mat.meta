@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: efcda0feeebd04c3a8d25746cb1c94b5
+timeCreated: 1428155974
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 30777
+  packageName: 3D Museum Showroom Kit
+  packageVersion: 2.5
+  assetPath: Assets/_Creepy_Cat/_Museum/_Meshes/Materials/Museum-Chrome.mat
+  uploadId: 689861
