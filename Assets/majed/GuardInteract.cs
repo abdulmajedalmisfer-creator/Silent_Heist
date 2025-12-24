@@ -12,8 +12,8 @@ public class GuardInteract : MonoBehaviour
     public Image stickerImage;            // صورة الستكر
 
     [Header("Settings")]
-    public float interactDistance = 2.5f;
-    public float messageDuration = 7f;
+    public float interactDistance = 6f;
+    public float messageDuration = 15f;
 
     bool isShowing = false;
 
@@ -28,6 +28,7 @@ public class GuardInteract : MonoBehaviour
             if (ticketObject == null || !ticketObject.activeInHierarchy)
             {
                 ShowMessage("🎟️ -500 RIYAL\nYou are welcome to enter, Sir");
+                stickerImage.gameObject.SetActive(true);
             }
             else
             {
@@ -48,7 +49,7 @@ public class GuardInteract : MonoBehaviour
         // شغّل النص والصورة
         messageText.text = msg;
         messageText.gameObject.SetActive(true);
-        stickerImage.gameObject.SetActive(true);
+        
 
         yield return new WaitForSeconds(messageDuration);
 
