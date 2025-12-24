@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    Rigidbody rb;
-    Collider[] cols;
-    bool wasKinematic;
-    bool held;
+    private Rigidbody rb;
+    private Collider[] cols;
+    private bool held;
 
     void Awake()
     {
@@ -21,22 +20,29 @@ public class PickupItem : MonoBehaviour
 
         if (held)
         {
-            wasKinematic = rb.isKinematic;
+            // While held: no gravity, stop motion, avoid collisions by trigger
             rb.isKinematic = false;
             rb.useGravity = false;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
             for (int i = 0; i < cols.Length; i++)
-                cols[i].enabled = false;
+                cols[i].isTrigger = true;
         }
         else
         {
+            // When released/thrown: physics ON
             rb.useGravity = true;
-            rb.isKinematic = wasKinematic;
+            rb.isKinematic = false;
 
             for (int i = 0; i < cols.Length; i++)
-                cols[i].enabled = true;
+                cols[i].isTrigger = false;
         }
     }
+
+    public bool IsHeld()
+    {
+        return held;
+    }
 }
+
