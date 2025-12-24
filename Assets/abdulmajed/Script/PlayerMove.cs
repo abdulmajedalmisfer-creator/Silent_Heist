@@ -51,12 +51,12 @@ public class PlayerMove : MonoBehaviour
 
         // Ground check (Sphere)
         isGrounded = Physics.CheckSphere(
-            transform.position + Vector3.up * sphereOffset,
+            transform.position + Vector3.down * sphereOffset,
             sphereRadius,
             groundLayer
         );
 
-        if (isGrounded)
+        if (isGrounded && rb.linearVelocity.y < 0) 
         {
             canDoubleJump = true;
         }
