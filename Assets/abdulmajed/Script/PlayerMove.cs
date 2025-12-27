@@ -18,6 +18,9 @@ public class PlayerMove : MonoBehaviour
     [Header("Crouch")]
     public float crouchHeight = 1.2f;
 
+    [Header("Audio")]
+    public PlayerAudio playerAudio;
+
     Rigidbody rb;
     CapsuleCollider col;
 
@@ -49,28 +52,25 @@ public class PlayerMove : MonoBehaviour
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-        // Ground check (Sphere)
+        // Ground check
         isGrounded = Physics.CheckSphere(
-            transform.position + Vector3.down * sphereOffset,
+            transform.position + Vector3.up * sphereOffset,
             sphereRadius,
             groundLayer
         );
 
-        if (isGrounded && rb.linearVelocity.y < 0) 
-        {
+        if (isGrounded)
             canDoubleJump = true;
-        }
 
-        // Jump
-        if (Input.GetButtonDown("Jump"))
+        if (!isCrouching && Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
             {
-                DoJump();
+                DoJump(false);
             }
             else if (canDoubleJump)
             {
-                DoJump();
+                DoJump(true);
                 canDoubleJump = false;
             }
         }
@@ -81,13 +81,16 @@ public class PlayerMove : MonoBehaviour
             if (!isCrouching) StartCrouch();
             else StopCrouch();
         }
+
+        HandleMovementAudio();
     }
 
     void FixedUpdate()
     {
         float currentSpeed = speed;
 
-        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+     
+        if (!isCrouching && Input.GetKey(KeyCode.LeftShift))
             currentSpeed = sprintSpeed;
 
         if (isCrouching)
@@ -97,11 +100,42 @@ public class PlayerMove : MonoBehaviour
         rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
     }
 
-    void DoJump()
+    void DoJump(bool doubleJump)
     {
-   
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        if (playerAudio == null) return;
+
+        if (doubleJump)
+            playerAudio.PlayDoubleJump();
+        else
+            playerAudio.PlayJump();
+    }
+
+    void HandleMovementAudio()
+    {
+        if (playerAudio == null)
+            return;
+
+        if (isCrouching || !isGrounded)
+        {
+            playerAudio.StopMove();
+            return;
+        }
+
+        bool isMoving = Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f;
+
+        if (!isMoving)
+        {
+            playerAudio.StopMove();
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+            playerAudio.PlayRun();
+        else
+            playerAudio.PlayWalk();
     }
 
     void StartCrouch()
