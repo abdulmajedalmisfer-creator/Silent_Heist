@@ -141,15 +141,13 @@ public class PlayerMove : MonoBehaviour
     void StartCrouch()
     {
         isCrouching = true;
-        col.height = crouchHeight;
-        col.center = crouchCenter;
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
     }
 
     void StopCrouch()
     {
         isCrouching = false;
-        col.height = standHeight;
-        col.center = standCenter;
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
     }
 
     void OnDrawGizmos()
