@@ -2,29 +2,37 @@ using UnityEngine;
 
 public class ElevatorButton : MonoBehaviour
 {
-    private Slided elevator;
+    private ElevatorSlideXYZ elevator; // الكلاس الجديد
     private bool playerNear = false;
 
     void Start()
     {
-        elevator = FindFirstObjectByType<Slided>();
+        // نبحث عن المصعد في المشهد
+        elevator = FindFirstObjectByType<ElevatorSlideXYZ>();
+
+        if (elevator == null)
+        {
+            Debug.LogError("❌ لم يتم العثور على ElevatorSlideXYZ في المشهد");
+        }
     }
 
     void Update()
     {
-        if (playerNear && Input.GetKeyDown(KeyCode.E))
+        if (!playerNear || elevator == null) return;
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            elevator.StartMove(); // ✅ الاسم الصحيح
+            elevator.StartMove();
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
             playerNear = true;
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
             playerNear = false;
