@@ -1,40 +1,30 @@
 using UnityEngine;
+using System.Collections;
 
 public class ElevatorButton : MonoBehaviour
 {
-    private ElevatorSlideXYZ elevator; // الكلاس الجديد
-    private bool playerNear = false;
+    public ElevatorControllerXYZ elevator;
 
-    void Start()
-    {
-        // نبحث عن المصعد في المشهد
-        elevator = FindFirstObjectByType<ElevatorSlideXYZ>();
-
-        if (elevator == null)
-        {
-            Debug.LogError("❌ لم يتم العثور على ElevatorSlideXYZ في المشهد");
-        }
-    }
+    [Header("Hide Settings")]
+    public GameObject objectToHide;   // الأوبجكت اللي يختفي (الزر غالبًا)
+    public float hideTime = 3f;        // مدة الاختفاء
 
     void Update()
     {
-        if (!playerNear || elevator == null) return;
-
         if (Input.GetKeyDown(KeyCode.E))
         {
-            elevator.StartMove();
+            if (elevator != null)
+                elevator.StartElevatorSequence();
+
+            if (objectToHide != null)
+                StartCoroutine(HideRoutine());
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    IEnumerator HideRoutine()
     {
-        if (other.CompareTag("Player"))
-            playerNear = true;
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            playerNear = false;
+        objectToHide.SetActive(false);          // إخفاء
+        yield return new WaitForSeconds(hideTime);
+        objectToHide.SetActive(true);           // إرجاع
     }
 }
