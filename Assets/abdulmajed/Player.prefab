@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4629932104064291007}
   - component: {fileID: 8208703739794057431}
   - component: {fileID: 741931281080753999}
-  - component: {fileID: 1204241788037439383}
   - component: {fileID: 5425964147891466341}
   - component: {fileID: 6745027073467208161}
   m_Layer: 0
@@ -145,29 +144,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &1204241788037439383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239673604572521163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f1b62156af442c4a9374efa9fa96ab8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
-  sphereOffset: -0.69
-  sphereRadius: 0.37
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 9
-  speed: 5
-  sprintSpeed: 10
-  crouchSpeedMultiplier: 0.6
-  jumpForce: 7
-  standHeight: 2
-  crouchHeight: 1
 --- !u!135 &5425964147891466341
 SphereCollider:
   m_ObjectHideFlags: 0
