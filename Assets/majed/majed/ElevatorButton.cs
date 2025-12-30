@@ -5,9 +5,9 @@ public class ElevatorButton : MonoBehaviour
 {
     public ElevatorControllerXYZ elevator;
 
-    [Header("Hide Settings")]
-    public GameObject objectToHide;   // الأوبجكت اللي يختفي (الزر غالبًا)
-    public float hideTime = 3f;        // مدة الاختفاء
+    
+     // الأوبجكت اللي يختفي (الزر غالبًا)
+          // مدة الاختفاء
 
     void Update()
     {
@@ -16,15 +16,9 @@ public class ElevatorButton : MonoBehaviour
             if (elevator != null)
                 elevator.StartElevatorSequence();
 
-            if (objectToHide != null)
-                StartCoroutine(HideRoutine());
+           
         }
     }
 
-    IEnumerator HideRoutine()
-    {
-        objectToHide.SetActive(false);          // إخفاء
-        yield return new WaitForSeconds(hideTime);
-        objectToHide.SetActive(true);           // إرجاع
-    }
+ 
 }

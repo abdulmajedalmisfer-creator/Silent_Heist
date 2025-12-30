@@ -53,7 +53,6 @@ public class ElevatorControllerXYZ : MonoBehaviour
 
     void Start()
     {
-        // البداية: المصعد عند A والباب مقفول
         transform.position = pointA;
         transform.rotation = Quaternion.Euler(rotA);
 
@@ -115,7 +114,10 @@ public class ElevatorControllerXYZ : MonoBehaviour
             case State.MovingToA:
                 MoveElevator(pointA, rotA);
                 if (Reached(transform.position, pointA))
-                    state = State.IdleAtA;
+                {
+                    state = State.OpeningAtA;   // ✅ التغيير هنا
+                    timer = 0f;
+                }
                 break;
         }
     }
