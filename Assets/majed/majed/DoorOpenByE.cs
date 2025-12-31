@@ -27,6 +27,7 @@ public class DoorOpenByE : MonoBehaviour
             //animator.Play(animationStateName, 0, 1f);
 
             animator.SetBool("isOpen", true);
+            canves.SetActive(false);
 
 
     }
