@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour
 {
@@ -13,8 +13,8 @@ public class PlayerPickup : MonoBehaviour
     public float chargeTimeToMax = 1.2f;
 
     [Header("Keys")]
-    public KeyCode holdKey = KeyCode.E;    
-    public KeyCode storeKey = KeyCode.I;   
+    public KeyCode holdKey = KeyCode.E;
+    public KeyCode storeKey = KeyCode.I;
 
     Rigidbody heldRb;
     PickupItem heldItem;
@@ -26,20 +26,26 @@ public class PlayerPickup : MonoBehaviour
 
     void Start()
     {
-        inventory = GetComponent<Inventory>(); 
+        inventory = GetComponent<Inventory>();
     }
 
     void Update()
     {
+        // E: مسك/فك مسك
         if (Input.GetKeyDown(holdKey))
         {
             if (heldRb == null) TryPickup();
             else Drop();
         }
-        if (heldRb != null && Input.GetKeyDown(storeKey))
+
+        // I: إذا ماسك شي -> خزّن / إذا مو ماسك -> افتح/قفل الانفنتوري
+        if (Input.GetKeyDown(storeKey))
         {
-            StoreHeldItem();
+            if (heldRb != null) StoreHeldItem();
+            else if (inventory != null) inventory.ToggleInventory();
         }
+
+        // رمي بالشحن بالماوس
         if (heldRb != null)
         {
             if (Input.GetMouseButtonDown(0))
@@ -64,6 +70,7 @@ public class PlayerPickup : MonoBehaviour
     void FixedUpdate()
     {
         if (heldRb == null) return;
+
         Vector3 to = holdPoint.position - heldRb.position;
         heldRb.linearVelocity = to / Time.fixedDeltaTime;
         heldRb.angularVelocity = Vector3.zero;
@@ -121,6 +128,7 @@ public class PlayerPickup : MonoBehaviour
         charging = false;
         charge = 0f;
     }
+
     void Throw()
     {
         if (heldRb == null) return;
@@ -151,17 +159,30 @@ public class PlayerPickup : MonoBehaviour
     {
         if (inventory == null || heldItem == null || heldRb == null) return;
 
-        GameObject go = heldItem.gameObject;
-        bool added = inventory.AddItem(go);
+        // لازم يكون على نفس الاوبجكت (أو الأب) سكربت InventoryItemData
+        InventoryItemData data = heldItem.GetComponent<InventoryItemData>();
+        if (data == null) data = heldItem.GetComponentInParent<InventoryItemData>();
+        if (data == null) return;
+
+        // إذا هذا الشي ما نبغاه يدخل الانفنتوري
+        if (!data.canStore) return;
+
+        bool added = inventory.AddItem(heldItem.gameObject, data.icon);
         if (!added) return;
+
         heldItem.SetHeld(false);
         heldRb.useGravity = true;
+
         heldRb = null;
         heldItem = null;
+
         charging = false;
         charge = 0f;
-        go.SetActive(false);
+
+        // نخفيه من العالم بعد التخزين
+        data.gameObject.SetActive(false);
     }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
