@@ -1,0 +1,442 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 1296,
+      "max": [
+        223
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5125,
+      "count": 66,
+      "max": [
+        228
+      ],
+      "min": [
+        90
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 229,
+      "max": [
+        0.4452127516269684,
+        0.508712887763977,
+        0.22668278217315674
+      ],
+      "min": [
+        -0.43029502034187317,
+        0.0,
+        -0.1969607174396515
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 229,
+      "max": [
+        0.9555684328079224,
+        0.9921172261238098,
+        0.998135507106781
+      ],
+      "min": [
+        -0.9697531461715698,
+        -1.0,
+        -0.9977959990501404
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5125,
+      "count": 194817,
+      "max": [
+        48706
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 48707,
+      "max": [
+        0.22487232089042664,
+        0.4922916293144226,
+        0.19414696097373962
+      ],
+      "min": [
+        -0.21402478218078613,
+        0.0,
+        -0.17299051582813263
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 48707,
+      "max": [
+        0.9999899864196777,
+        0.9996393918991089,
+        0.9999867081642151
+      ],
+      "min": [
+        -0.9999715089797974,
+        -0.9802679419517517,
+        -0.9999935626983643
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5125,
+      "count": 5286,
+      "max": [
+        888
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 8,
+      "componentType": 5126,
+      "count": 889,
+      "max": [
+        0.14987120032310486,
+        0.3273930251598358,
+        0.058680687099695206
+      ],
+      "min": [
+        -0.13302509486675262,
+        0.0,
+        -0.07840005308389664
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 9,
+      "componentType": 5126,
+      "count": 889,
+      "max": [
+        0.9924730062484741,
+        0.9953797459602356,
+        0.9996804594993591
+      ],
+      "min": [
+        -0.9949562549591064,
+        -0.9976826906204224,
+        -0.9998733997344971
+      ],
+      "type": "VEC3"
+    }
+  ],
+  "asset": {
+    "generator": "CLO Standalone OnlineAuth 2025.2.256",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 5184
+    },
+    {
+      "buffer": 0,
+      "byteLength": 264,
+      "byteOffset": 5184
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2748,
+      "byteOffset": 5448
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2748,
+      "byteOffset": 8196
+    },
+    {
+      "buffer": 0,
+      "byteLength": 779268,
+      "byteOffset": 10944
+    },
+    {
+      "buffer": 0,
+      "byteLength": 584484,
+      "byteOffset": 790212
+    },
+    {
+      "buffer": 0,
+      "byteLength": 584484,
+      "byteOffset": 1374696
+    },
+    {
+      "buffer": 0,
+      "byteLength": 21144,
+      "byteOffset": 1959180
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10668,
+      "byteOffset": 1980324
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10668,
+      "byteOffset": 1990992
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 2001660,
+      "uri": "سسس.bin"
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_specular"
+  ],
+  "materials": [
+    {
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.15000000596046448
+        }
+      },
+      "name": "Material1520_1520",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.23099814355373383,
+          0.07805658876895905,
+          0.0477757565677166,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.15000000596046448
+        }
+      },
+      "name": "Material1522_1522",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.23099814355373383,
+          0.07805658876895905,
+          0.0477757565677166,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "name": "Material2601_2601",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.48776522278785706,
+          0.5113978385925293,
+          0.49950528144836426,
+          1.0
+        ],
+        "roughnessFactor": 0.10000002384185791
+      }
+    },
+    {
+      "name": "Material9081_9081",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0,
+          0.1801442801952362,
+          0.4259053170681,
+          1.0
+        ],
+        "roughnessFactor": 0.10000002384185791
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Obj_Avatar_Shape",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 3,
+            "POSITION": 2
+          },
+          "indices": 0,
+          "material": 0
+        },
+        {
+          "attributes": {
+            "NORMAL": 3,
+            "POSITION": 2
+          },
+          "indices": 1,
+          "material": 1
+        }
+      ]
+    },
+    {
+      "name": "Obj_Avatar_Shape",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5
+          },
+          "indices": 4,
+          "material": 2
+        }
+      ]
+    },
+    {
+      "name": "Obj_Avatar_Shape",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 9,
+            "POSITION": 8
+          },
+          "indices": 7,
+          "material": 3
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "سسس_Scene_Node"
+    },
+    {
+      "children": [
+        2,
+        5,
+        8
+      ],
+      "name": "Avatar"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "يييي"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "Obj_Avatar_Shape",
+      "scale": [
+        0.9518822431564331,
+        0.9518822431564331,
+        0.9518822431564331
+      ],
+      "translation": [
+        0.017874859273433685,
+        0.014141500927507877,
+        0.037927184253931046
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Obj_Avatar_Shape"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "يييي",
+      "rotation": [
+        0.0016570418374612927,
+        -0.07302941381931305,
+        0.007515895180404186,
+        0.9973000884056091
+      ],
+      "translation": [
+        0.014014365151524544,
+        0.004163093864917755,
+        0.06869681924581528
+      ]
+    },
+    {
+      "children": [
+        7
+      ],
+      "name": "Obj_Avatar_Shape",
+      "rotation": [
+        0.011358850635588169,
+        0.08366429060697556,
+        -0.005026118829846382,
+        0.9964165687561035
+      ],
+      "translation": [
+        0.021485885605216026,
+        0.0007147169671952724,
+        0.02044229954481125
+      ]
+    },
+    {
+      "mesh": 1,
+      "name": "Obj_Avatar_Shape"
+    },
+    {
+      "children": [
+        9
+      ],
+      "name": "يييي",
+      "translation": [
+        0.03621374070644379,
+        -0.010509716346859932,
+        0.25828975439071655
+      ]
+    },
+    {
+      "children": [
+        10
+      ],
+      "name": "Obj_Avatar_Shape",
+      "scale": [
+        1.025315523147583,
+        1.025315523147583,
+        1.025315523147583
+      ],
+      "translation": [
+        -0.002764705801382661,
+        -0.006464172620326281,
+        -0.004062606953084469
+      ]
+    },
+    {
+      "mesh": 2,
+      "name": "Obj_Avatar_Shape"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
