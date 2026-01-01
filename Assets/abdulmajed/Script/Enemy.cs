@@ -24,9 +24,13 @@ public class Enemy : MonoBehaviour
     public float hearRange = 12f;
     public float investigateWaitTime = 2f;
 
+    [Header("Game Over")]
+    public GameOverManager gameOverManager;
+
     Transform player;
     NavMeshAgent agent;
     Transform currentTarget;
+    Animator animator;
 
     bool isChasing = false;
     float chaseOnHitTimer = 0f;
@@ -34,10 +38,13 @@ public class Enemy : MonoBehaviour
     bool isInvestigating = false;
     Vector3 investigatePoint;
     float investigateTimer = 0f;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
+
         currentTarget = pointA;
         agent.speed = patrolSpeed;
         agent.stoppingDistance = 0.5f;
@@ -46,9 +53,14 @@ public class Enemy : MonoBehaviour
         if (currentTarget != null)
             agent.SetDestination(currentTarget.position);
     }
+
     void Update()
     {
         if (player == null || agent == null) return;
+
+        
+        if (animator != null)
+            animator.SetFloat("Speed", agent.velocity.magnitude);
 
         // Chase on hit timer
         if (chaseOnHitTimer > 0f)
@@ -56,13 +68,16 @@ public class Enemy : MonoBehaviour
             chaseOnHitTimer -= Time.deltaTime;
             isChasing = true;
         }
+
         // Vision
         bool canSeePlayer = CanSeePlayer();
         if (canSeePlayer)
             isChasing = true;
+
         // Priority: player over investigate
         if (isChasing)
             isInvestigating = false;
+
         // Lose chase
         float distToPlayer = Vector3.Distance(transform.position, player.position);
         if (isChasing && distToPlayer > chaseLoseRange && chaseOnHitTimer <= 0f && !canSeePlayer)
@@ -73,69 +88,80 @@ public class Enemy : MonoBehaviour
             if (currentTarget != null)
                 agent.SetDestination(currentTarget.position);
         }
+
         // State actions
         if (isChasing)
-        {
             Chase();
-        }
         else if (isInvestigating)
-        {
             Investigate();
+        else
+            Patrol();
+
+ 
+        if (agent.velocity.sqrMagnitude > 0.02f)
+        {
+            LookAtFlat(transform.position + agent.velocity);
         }
         else
         {
-            Patrol();
+     
+            Vector3 lookPos =
+                isChasing ? player.position :
+                isInvestigating ? investigatePoint :
+                (currentTarget != null ? currentTarget.position : transform.position + transform.forward);
+
+            LookAtFlat(lookPos);
         }
-        // Look direction
-        Vector3 lookPos =
-            isChasing ? player.position :
-            isInvestigating ? investigatePoint :
-            (currentTarget != null ? currentTarget.position : transform.position + transform.forward);
-        LookAtFlat(lookPos);
+
     }
+
     void Patrol()
     {
         if (pointA == null || pointB == null) return;
 
         agent.speed = patrolSpeed;
         agent.stoppingDistance = 0.5f;
+
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             currentTarget = (currentTarget == pointA) ? pointB : pointA;
             agent.SetDestination(currentTarget.position);
         }
     }
+
     void Chase()
     {
         agent.speed = chaseSpeed;
         agent.stoppingDistance = 0.8f;
+
         Vector3 targetPos = new Vector3(player.position.x, transform.position.y, player.position.z);
         agent.SetDestination(targetPos);
     }
+
     void Investigate()
     {
-        // If sees player anytime -> chase
         if (CanSeePlayer())
         {
             isInvestigating = false;
             isChasing = true;
             return;
         }
-        // Reached noise point
+
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
         {
             investigateTimer -= Time.deltaTime;
             if (investigateTimer <= 0f)
             {
                 isInvestigating = false;
-                // Back to patrol
                 agent.speed = patrolSpeed;
                 agent.stoppingDistance = 0.5f;
+
                 if (currentTarget != null)
                     agent.SetDestination(currentTarget.position);
             }
         }
     }
+
     bool CanSeePlayer()
     {
         Vector3 toPlayer = player.position - transform.position;
@@ -151,12 +177,11 @@ public class Enemy : MonoBehaviour
         dir.y = 0f;
 
         if (Physics.Raycast(eyePos, dir.normalized, out RaycastHit hit, chaseRange))
-        {
             return hit.transform == player;
-        }
 
         return false;
     }
+
     void LookAtFlat(Vector3 targetPos)
     {
         Vector3 dir = targetPos - transform.position;
@@ -166,27 +191,38 @@ public class Enemy : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, 10f * Time.deltaTime);
     }
-    // Call this when the enemy gets hit
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && gameOverManager != null)
+        {
+            gameOverManager.TriggerGameOver();
+        }
+    }
+
     public void OnHit()
     {
         chaseOnHitTimer = chaseOnHitTime;
         isChasing = true;
         isInvestigating = false;
     }
-    // Call this when an item makes noise
+
     public void HearNoise(Vector3 noisePos)
     {
-        // Don't interrupt chasing (player priority)
         if (isChasing) return;
+
         float d = Vector3.Distance(transform.position, noisePos);
         if (d > hearRange) return;
+
         isInvestigating = true;
         investigatePoint = noisePos;
         investigateTimer = investigateWaitTime;
+
         agent.speed = patrolSpeed;
         agent.stoppingDistance = 0.5f;
         agent.SetDestination(investigatePoint);
     }
+
     public void RespondToAlarm(Vector3 alarmPos)
     {
         isInvestigating = true;
@@ -199,6 +235,4 @@ public class Enemy : MonoBehaviour
         Vector3 target = new Vector3(alarmPos.x, transform.position.y, alarmPos.z);
         agent.SetDestination(target);
     }
-
 }
-
