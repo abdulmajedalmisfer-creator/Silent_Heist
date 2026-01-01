@@ -33,7 +33,7 @@ public class NumberPad : MonoBehaviour
     public void Enter()
     {
        // door.PlayReverseAnimation();
-        if (input == "123")
+        if (input == "4713")
         {
            door.PlayReverseAnimation();
            // displayText.text = "UNLOCKED";

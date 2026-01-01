@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour
     {
       
 
-      //  SceneManager.LoadScene("GameScene"); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      SceneManager.LoadScene("majed"); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     public void OpenSettings()
